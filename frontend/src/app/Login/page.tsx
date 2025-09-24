@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../..//context/AuthContext";
+import GoogleSignInButton from "../componenets/GoogleSignInButton";
 
 export default function Login() {
   const router = useRouter();
@@ -56,6 +57,8 @@ export default function Login() {
           <Link href="/SignUp" className="text-blue-600 hover:underline">
             Sign Up
           </Link>
+
+          <GoogleSignInButton />
         </p>
       </div>
     </div>

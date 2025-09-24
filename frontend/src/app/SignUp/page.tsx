@@ -3,6 +3,7 @@
 import { FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../context/AuthContext"; 
+import GoogleSignInButton from "../componenets/GoogleSignInButton";
 
 export default function SignUp() {
   const router = useRouter();
@@ -59,6 +60,8 @@ export default function SignUp() {
           <a href="/Login" className="text-blue-600 hover:underline">
             Log In
           </a>
+
+          <GoogleSignInButton />
         </p>
       </div>
     </div>
