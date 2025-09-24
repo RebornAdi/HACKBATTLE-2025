@@ -42,7 +42,7 @@ nextApp.prepare().then(() => {
 
   server.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login', session: true })
     ,(req, res) => {
-      res.redirect('/'); // success
+      res.redirect('/');
   });
 
 //   server.get('/login', (_req, res) => res.send('Login failed, try again'));
