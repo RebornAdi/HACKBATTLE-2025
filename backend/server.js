@@ -1,6 +1,14 @@
+require('dotenv').config();
 const express = require('express');
 const next = require('next');
 const path = require('path');
+const session = require('express-session');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
+const clientID = process.env.GOOGLE_CLIENT_ID;
+const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+const callbackURL = process.env.GOOGLE_CALLBACK_URL || 'http://localhost:3000/auth/google/callback';
 
 const dev = process.env.NODE_ENV !== 'production';
 
@@ -10,6 +18,41 @@ const handle = nextApp.getRequestHandler();
 
 nextApp.prepare().then(() => {
   const server = express();
+  
+  server.use(session({
+    secret: process.env.SESSION_SECRET || 'dev_secret',
+    resave: false,
+    saveUninitialized: false,
+  }));
+  
+  server.use(passport.initialize());
+  server.use(passport.session());
+
+  passport.serializeUser((user, done) => done(null, user));
+  passport.deserializeUser((obj, done) => done(null, obj));
+
+  passport.use(new GoogleStrategy(
+  { clientID, clientSecret, callbackURL },
+  (accessToken, refreshToken, profile, done) => done(null, profile)
+  ));
+
+  server.get('/auth/google',
+    passport.authenticate('google', { scope: ['profile', 'email'] })
+  );
+
+  server.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login', session: true })
+    ,(req, res) => {
+      res.redirect('/'); // success
+  });
+
+//   server.get('/login', (_req, res) => res.send('Login failed, try again'));
+// // Logout
+//   server.post('/logout', (req, res, next) => {
+//     req.logout(err => {
+//       if (err) return next(err);
+//       req.session.destroy(() => res.redirect('/'));
+//     });
+//   });
 
   server.get('/', (req, res) => {
     return nextApp.render(req, res, '/', req.query);
@@ -31,11 +74,10 @@ nextApp.prepare().then(() => {
     try {
       const response = await axios.get(url, {
         headers: {
-          'User-Agent': 'HealthBuddy/1.0 (vivek.kumar2023@vitstudent.ac.in)' // Required by OSM policy
+          'User-Agent': 'HealthBuddy/1.0 (vivek.kumar2023@vitstudent.ac.in)'
         }
       });
 
-      // The state is usually in the 'address.state' property of the response
       const state = response.data.address.state;
 
       if (state) {
