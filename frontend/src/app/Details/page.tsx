@@ -1,14 +1,15 @@
+"use client";
+
+import Link from "next/link";
 import Nav from "../componenets/Navbar1";
 
 export default function UserForm() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white relative">
-      {/* Fixed Navbar */}
       <div className="fixed top-0 left-0 w-full z-50">
         <Nav />
       </div>
 
-      {/* Form container with padding-top to avoid navbar overlap */}
       <div className="flex flex-col items-center justify-center px-6 py-12 pt-28">
         <div className="bg-white shadow-xl rounded-3xl p-10 max-w-lg w-full">
           <h2 className="text-3xl font-bold text-blue-800 text-center mb-6">
@@ -76,12 +77,6 @@ export default function UserForm() {
               rows={4}
             />
 
-            <button
-              type="submit"
-              className="mt-4 px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-full font-semibold shadow-lg transition"
-            >
-              Submit
-            </button>
           </form>
         </div>
       </div>

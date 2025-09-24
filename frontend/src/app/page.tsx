@@ -1,11 +1,11 @@
 import Navbar from "../app/componenets/Navbar";
-import Hero from "../app/Hero/page";
-
+import Hero from "../app/componenets/Home";
+import LearnMore from "../app/About/page";
 export default function Home() {
   return (
     <>
-      {/* <Navbar /> */}
       <Hero />
+      <LearnMore />
     </>
   );
 }

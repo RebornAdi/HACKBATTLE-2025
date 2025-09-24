@@ -12,15 +12,15 @@ export default function Navbar() {
           height={60}
           className="rounded-full"
         />
-        <span className="text-3xl md:text-4xl font-bold bg-blue-800 bg-clip-text text-transparent">
+        <span className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
           GoldenApple
         </span>
       </div>
 
       <div className="flex items-center gap-3">
-        <Link href="/">
+        <Link href="/Login">
           <button className="px-5 py-2 bg-blue-100 text-blue-800 hover:bg-blue-200 rounded-full font-semibold transition shadow-sm">
-            Home
+            Login
           </button>
         </Link>
         <Link href="/SignUp">
