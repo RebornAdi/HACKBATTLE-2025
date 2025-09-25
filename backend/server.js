@@ -5,6 +5,7 @@ const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const clientID = process.env.GOOGLE_CLIENT_ID;
 const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
@@ -18,7 +19,27 @@ const handle = nextApp.getRequestHandler();
 
 nextApp.prepare().then(() => {
   const server = express();
+  // const router = express.Router();
+  // const PYTHON_URL = process.env.PYTHON_URL || 'http://127.0.0.1:5000';
+  // router.use(express.json());
   
+  server.use(
+  '/api',
+  createProxyMiddleware({
+    target: process.env.PYTHON_URL || 'http://127.0.0.1:4000',
+    changeOrigin: true,                 // set Host to Python host
+    pathRewrite: { '^/api': '' },       // /api/predict -> /predict (remove if paths already match)
+    onProxyReq(proxyReq, req) {
+      if (req.method !== 'GET' && req.body && Object.keys(req.body).length) {
+        const body = JSON.stringify(req.body);
+        proxyReq.setHeader('Content-Type', 'application/json');
+        proxyReq.setHeader('Content-Length', Buffer.byteLength(body));
+        proxyReq.write(body);
+      }
+    },
+  })
+  );
+
   server.use(session({
     secret: process.env.SESSION_SECRET || 'dev_secret',
     resave: false,
