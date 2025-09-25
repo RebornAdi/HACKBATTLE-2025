@@ -80,7 +80,7 @@ nextApp.prepare().then(() => {
   });
 
   server.get('/api/data', (req, res) => {
-    res.json({ message: 'This data came from the Express backend!' });
+    res.json({ message: 'This data came from the Express backend!' }); 
   });
 
   server.post('/api/location', async (req, res) => {
