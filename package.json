@@ -17,10 +17,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm --workspaces install",
-    "start" : "node backend/server.js"
+    "start": "node backend/server.js"
   },
-  "workspaces" : [
+  "workspaces": [
     "backend",
     "frontend"
-  ]
+  ],
+  "dependencies": {
+    "react-icons": "^5.5.0"
+  }
 }
