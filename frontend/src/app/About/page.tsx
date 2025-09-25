@@ -1,10 +1,15 @@
 "use client";
+import { useEffect, useState } from "react";
 import { AiOutlineGlobal } from "react-icons/ai";
 import { BsFileBarGraphFill } from "react-icons/bs";
 import { FaHandsHelping } from "react-icons/fa";
+import { useAuth } from "../../context/AuthContext";
 import Link from "next/link";
 
 export default function LearnMore() {
+  const { isLoggedIn } = useAuth();
+
+
   return (
     <section
       id="about"
@@ -67,7 +72,7 @@ export default function LearnMore() {
         </div>
 
         <div className="mt-12 flex justify-center">
-          <Link href="/Login">
+          <Link href={isLoggedIn ? "/Details" : "/Login"}>
             <button className="px-8 py-4 bg-green-500 hover:bg-green-600 text-white rounded-full font-semibold text-lg shadow-lg transition">
               Get Started Today
             </button>

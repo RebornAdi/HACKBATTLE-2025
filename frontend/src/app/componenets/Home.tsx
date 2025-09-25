@@ -3,6 +3,7 @@
 import { useAuth } from "../../context/AuthContext";
 import Navbar from "../componenets/Navbar";
 import Nav from "../componenets/Navbar1"; 
+import Link from "next/link";
 
 export default function Hero() {
   const { isLoggedIn } = useAuth();
@@ -24,11 +25,11 @@ export default function Hero() {
         </p>
 
         <div className="mt-10 flex flex-col md:flex-row gap-4">
-          <a href="/Login">
+          <Link href={isLoggedIn ? "/Details" : "/Login"}>
             <button className="px-8 py-4 bg-green-500 hover:bg-green-600 rounded-full font-semibold text-lg text-white transition shadow-lg">
               Get Started
             </button>
-          </a>
+          </Link>
 
           <a href="#about">
             <button className="px-8 py-4 bg-white hover:bg-gray-100 rounded-full font-semibold text-lg text-blue-700 border border-blue-300 transition shadow">

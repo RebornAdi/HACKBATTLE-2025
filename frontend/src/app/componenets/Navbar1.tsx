@@ -23,9 +23,16 @@ export default function Nav() {
             Home
           </button>
         </Link>
+
         <Link href="/History">
           <button className="px-5 py-2 bg-green-500 hover:bg-green-600 text-white rounded-full font-semibold transition shadow">
             History
+          </button>
+        </Link>
+
+        <Link href="/Details">
+          <button className="px-5 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-full font-semibold transition shadow">
+            Details
           </button>
         </Link>
       </div>
